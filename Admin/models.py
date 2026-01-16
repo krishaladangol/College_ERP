@@ -5,6 +5,7 @@ class Student(models.Model):
     Firstname=models.CharField(max_length=100)
     Lastname=models.CharField(max_length=100)
     Grade=models.IntegerField()
+    course=models.CharField(max_length=100,default="BIT")
 
     def __str__(self):
         return f"{self.Firstname}-{self.Lastname}"

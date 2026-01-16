@@ -3,7 +3,7 @@ class Student_form(forms.Form):
     Firstname=forms.CharField(max_length=100)
     Lastname=forms.CharField(max_length=100)
     Grade=forms.CharField(max_length=100)
-
+    Course=forms.CharField(max_length=100)
 class attendance_add(forms.Form):
     CHOICES=(
         ('Present','P'),

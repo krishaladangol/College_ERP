@@ -3,24 +3,6 @@ from .forms import *
 from .models import *
 from datetime import date
 # Create your views here.
-def add_student(request):
-    if request.method=="POST":
-        form=Student_form(request.POST)
-        if form.is_valid():
-            Firstname=form.cleaned_data['Firstname']
-            Lastname=form.cleaned_data['Lastname']
-            Grade=form.cleaned_data['Grade']
-
-            Student.objects.create(
-                Firstname=Firstname,
-                Lastname=Lastname,
-                Grade=Grade
-            )
-        else:
-            return redirect("add_student")
-    else:
-        form=Student_form()
-    return render(request,"add_student.html",{'form':form})
 
 # def attendance(request):
 #     teacher = Subject.objects.get(id=teacher_id)
@@ -39,6 +21,8 @@ def add_student(request):
 
 #     return render(request, "attendance.html", {"students": students, "teacher": teacher})
 
+
+# Teacher View
 def teacher_add(request):
     
     if request.method=="POST":
@@ -85,3 +69,48 @@ def delete_teacher(request,teacher_id):
         teacher.delete()
         return redirect('view_teacher')
     return render(request,"delete_teacher.html",{'object':teacher})
+
+def add_student(request):
+    if request.method=="POST":
+        form=Student_form(request.POST)
+        if form.is_valid():
+            Firstname=form.cleaned_data['Firstname']
+            Lastname=form.cleaned_data['Lastname']
+            Grade=form.cleaned_data['Grade']
+            Course=form.cleaned_data['Course']
+            Student.objects.create(
+                Firstname=Firstname,
+                Lastname=Lastname,
+                Grade=Grade,
+                course=Course
+            )
+            return redirect("view_student")
+        else:
+            return redirect("add_student")
+    else:
+        form=Student_form()
+    return render(request,"add_student.html",{'form':form})
+
+
+def view_student(request):
+    student=Student.objects.all()
+    return render(request,"view_student.html",{'all_student':student})
+
+def edit_student(request,student_id):
+    student=get_object_or_404(Student,id=student_id)
+    if request.method=="POST":
+        student.Firstname=request.POST.get('Firstname')
+        student.Lastname=request.POST.get('Lastname')
+        student.Grade=request.POST.get('Grade')
+        student.course=request.POST.get('Course')
+
+        student.save()
+        return redirect('view_student')
+    return render(request,"edit_student.html",{'student':student})
+
+def delete_student(request,student_id):
+    student=get_object_or_404(Student,id=student_id)
+    if request.method=="POST":
+        student.delete()
+        return redirect("view_student")
+    return render(request,"delete_student.html",{'student':student})
