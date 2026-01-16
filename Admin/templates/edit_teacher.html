@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Teacher</title>
+    <style>
+        body { font-family: Arial; background: #f4f6f8; }
+        .container {
+            width: 400px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        button {
+            margin-top: 15px;
+            width: 100%;
+            padding: 10px;
+            background: #2c7be5;
+            color: white;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Edit Teacher</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <label>Teacher Name</label>
+        <input type="text" name="Teachername" value="{{ teacher.Teachername }}" required>
+
+        <label>Subject</label>
+        <input type="text" name="Subject" value="{{ teacher.subject }}" required>
+
+        <label>Assigned Class</label>
+        <input type="text" name="Assigned_class" value="{{ teacher.assigned_class }}" required>
+
+        <button type="submit">Update Teacher</button>
+    </form>
+</div>
+
+</body>
+</html>
