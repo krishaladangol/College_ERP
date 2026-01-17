@@ -4,23 +4,7 @@ from .models import *
 from datetime import date
 # Create your views here.
 
-# def attendance(request):
-#     teacher = Subject.objects.get(id=teacher_id)
-#     students = Student.objects.filter(Grade=teacher.assigned_class)
-
-#     if request.method == "POST":
-#         today = date.today()
-#         for student in students:
-#             status = request.POST.get(f"status_{student.id}")
-#             Attendance.objects.update_or_create(
-#                 student=student,
-#                 date=today,
-#                 defaults={'status': status}
-#             )
-#         return redirect('attendance', teacher_id=teacher.id)
-
-#     return render(request, "attendance.html", {"students": students, "teacher": teacher})
-
+###Admin
 
 # Teacher View
 def teacher_add(request):
@@ -70,6 +54,8 @@ def delete_teacher(request,teacher_id):
         return redirect('view_teacher')
     return render(request,"delete_teacher.html",{'object':teacher})
 
+
+# student View
 def add_student(request):
     if request.method=="POST":
         form=Student_form(request.POST)
