@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f8;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+            color: #333;
+        }
+
+        /* Dashboard Container */
+        .dashboard {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+      
+        .card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            width: 250px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+        button:hover{
+             transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+        .add{
+            color:white;
+            background-color:pink;
+        }
+        .view{
+            color:white;
+            background-color:Yellow;            
+        }
+        .card h2 {
+            font-size: 2.5rem;
+            margin: 0;
+            color: #2c7be5;
+        }
+
+        .card p {
+            font-size: 1.2rem;
+            color: #555;
+            margin-top: 10px;
+        }
+
+    
+        @media (max-width: 800px) {
+            .card {
+                width: 45%;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .card {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Welcome to Admin Dashboard</h1>
+
+    <div class="dashboard">
+        <!-- Total Students -->
+        <div class="card">
+            <h2>{{ students }}</h2>
+            <p>Total Students</p>
+            <button class="add"><a href="add_student"> + Add </a></button>
+            <button class="view"><a href="view_student"> View</a></button>
+        </div>
+
+        <!-- Total Teachers -->
+        <div class="card">
+            <h2>{{ teachers }}</h2>
+            <p>Total Teachers</p>
+             
+            <button class="add"><a href="teacher_add"> + Add </a></button>
+            <button class="view"><a href="view_teacher"> View</a></button>
+
+            
+        </div>
+        
+
+       
+    </div>
+
+</body>
+</html>

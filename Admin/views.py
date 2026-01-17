@@ -2,6 +2,8 @@ from django.shortcuts import render,redirect,get_object_or_404
 from .forms import *
 from .models import *
 from datetime import date
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
 ###Admin
@@ -22,7 +24,7 @@ def teacher_add(request):
                 subject=subject,
                 assigned_class=Assigned_class
             )
-            return redirect("view Teacher")
+            return redirect("view_teacher")
         else:
             return redirect("Teacher_add")
     else:
@@ -100,3 +102,19 @@ def delete_student(request,student_id):
         student.delete()
         return redirect("view_student")
     return render(request,"delete_student.html",{'student':student})
+
+def admin_login(request):
+    if not request.user.is_authenticated:
+        return redirect("Login")
+    return render(request,"Home.html")
+
+@login_required
+def dashboard(request):
+    if not request.user.is_staff:
+        return redirect('login')    
+    context={
+        "students":Student.objects.count(),
+        "teachers":Subject.objects.count(),
+        
+    }
+    return render(request,"dashboard.html",context)

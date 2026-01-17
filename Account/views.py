@@ -14,11 +14,11 @@ def Registration(request):
             roll_number=form.cleaned_data['Roll_Number']
             if User.objects.filter(username=username).exists():
                 messages.error(request,"Username already exists.")
-                return redirect('Register')
+                return redirect('account:Register')
 
             if Student.objects.filter(roll_number=roll_number).exists():
                 messages.error(request, "Roll number already exists!")
-                return redirect('Register')
+                return redirect('account:Register')
 
             user = User.objects.create_user(
                 username=username,
@@ -39,7 +39,7 @@ def Registration(request):
             )
             # return redirect("Login")
         else:
-            return redirect("Register")
+            return redirect("account:Register")
     else:
         form=StudentRegisterForm()
     return render(request,"Register.html",{'forms':form})
@@ -54,7 +54,8 @@ def Login(request):
             user=authenticate(request,username=username,password=password)
             if user is not None:
                 login(request,user)
-                return redirect("Register")
+                if user.is_staff:
+                    return redirect('admin-dashboard')
             else:
                 messages.error(request,"Username or Password Incorrect")
     else:
