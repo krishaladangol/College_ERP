@@ -17,6 +17,8 @@ class Student(models.Model):
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
 
     phone_number = models.CharField(max_length=15)
+    
+    password=models.CharField(max_length=100,default="12345678")
 
     role = models.CharField(max_length=50, default="Student")
 

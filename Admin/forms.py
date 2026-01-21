@@ -13,6 +13,8 @@ class attendance_add(forms.Form):
 
 
 class Teacher_add(forms.Form):
+    Teacherid=forms.CharField(max_length=100)
     Teachername=forms.CharField(max_length=100)
-    Subject=forms.CharField(max_length=100)
-    Assignedclass=forms.IntegerField()
+    Subject_name=forms.CharField(max_length=100)
+    Assignedclass=forms.CharField(max_length=100)
+    department=forms.CharField(max_length=100)

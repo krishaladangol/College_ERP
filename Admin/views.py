@@ -15,14 +15,23 @@ def teacher_add(request):
         form=Teacher_add(request.POST)
         if form.is_valid():
             Teacher_name=form.cleaned_data['Teachername']
-            subject=form.cleaned_data['Subject']
+            subject=form.cleaned_data['Subject_name']
             Assigned_class=form.cleaned_data['Assignedclass']
+            Teacherid=form.cleaned_data['Teacherid']
+            department=form.cleaned_data['department']
             student = Student.objects.filter(Grade=Assigned_class)
-            Subject.objects.create(
-                
+            teacher=Teacher.objects.create(
+                TeacherID=Teacherid,
                 Teachername=Teacher_name,
-                subject=subject,
-                assigned_class=Assigned_class
+                
+                department=department,
+                
+            )
+            Subject.objects.create(
+                Teachername=Teacher_name,
+                teacher=teacher,#link FK
+                assigned_class=Assigned_class,
+                subject_name=subject,
             )
             return redirect("view_teacher")
         else:
@@ -34,22 +43,26 @@ def teacher_add(request):
 
 
 def view_teacher(request):
-    all_teacher=Subject.objects.all()
-    return render(request,"view_teacher.html",{'teachers':all_teacher})
+    # teachers = Teacher.objects.all()
+    subjects = Subject.objects.select_related('teacher')
+    return render(request,"view_teacher.html",{'subjects':subjects})
 
 def edit_teacher(request,teacher_id):
-    teacher=get_object_or_404(Subject,id=teacher_id)
+    teacher = get_object_or_404(Teacher, TeacherID=teacher_id)
+    subject = Subject.objects.filter(teacher=teacher).first() 
     if request.method=="POST":
-        teacher.Teachername=request.POST.get('Teachername')
-        teacher.subject=request.POST.get("Subject")
-        teacher.assigned_class=request.POST.get("Assigned_class")
-        
+        teacher.Teachername = request.POST.get('Teachername')
+        teacher.department = request.POST.get('department', teacher.department)
         teacher.save()
+        if subject:
+            subject.subject_name = request.POST.get("Subject", subject.subject_name)
+            subject.assigned_class = request.POST.get("Assigned_class", subject.assigned_class)
+            subject.save()
         return redirect("view_teacher")
-    return render(request,"edit_teacher.html",{'teacher':teacher})
+    return render(request,"edit_teacher.html",{'subject':subject})
 
 def delete_teacher(request,teacher_id):
-    teacher=get_object_or_404(Subject,id=teacher_id)
+    teacher=get_object_or_404(Teacher,TeacherID=teacher_id)
 
     if request.method=="POST":
         teacher.delete()
@@ -114,7 +127,7 @@ def dashboard(request):
         return redirect('login')    
     context={
         "students":Student.objects.count(),
-        "teachers":Subject.objects.count(),
+        "teachers":Teacher.objects.count(),
         
     }
     return render(request,"dashboard.html",context)

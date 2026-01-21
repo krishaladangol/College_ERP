@@ -35,6 +35,8 @@ def Registration(request):
             birthdate=form.cleaned_data['Birthdate'],
             gender=form.cleaned_data['Gender'],
             role=form.cleaned_data['Role'],
+            password=form.cleaned_data['Password'],
+            phone_number=form.cleaned_data['Phone_Number']
 
             )
             # return redirect("Login")

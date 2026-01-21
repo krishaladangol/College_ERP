@@ -38,15 +38,17 @@
 
     <form method="post">
         {% csrf_token %}
-
-        <label>Teacher Name</label>
-        <input type="text" name="Teachername" value="{{ teacher.Teachername }}" required>
-
+        <label>Teacher ID</label>
+        <input type="text" name="Teacherid" value="{{ subject.teacher.TeacherID }}" required>
+        <label>Teacher ID</label>
+        <input type="text" name="Teachername" value="{{ subject.teacher.Teachername }}" required>
+        <label>Department</label>
+        <input type="text" name="department" value="{{ subject.teacher.department }}" required>
         <label>Subject</label>
-        <input type="text" name="Subject" value="{{ teacher.subject }}" required>
+        <input type="text" name="Subject" value="{{ subject.subject_name }}" required>
 
         <label>Assigned Class</label>
-        <input type="text" name="Assigned_class" value="{{ teacher.assigned_class }}" required>
+        <input type="text" name="Assigned_class" value="{{ subject.assigned_class }}" required>
 
         <button type="submit">Update Teacher</button>
     </form>
