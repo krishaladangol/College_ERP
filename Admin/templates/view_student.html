@@ -72,6 +72,11 @@
                 <td>{{ student.Firstname }} {{student.Lastname}}</td>
                 <td>{{ student.Grade }}</td>
                 <td>{{ student.course }}</td>
+                <td>{{ student.username }}</td>
+                <td>{{ student.password }}</td>
+
+                
+
                  <td><a href="{% url 'edit_student' student.id %}">
                  <button class="Edit">Edit</button>
                 </a>

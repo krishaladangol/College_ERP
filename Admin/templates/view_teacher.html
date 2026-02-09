@@ -68,6 +68,8 @@
                 <th>Subject</th>
                 <th>Assigned Class</th>
                 <th>Department</th>
+                <th>Username</th>
+                <th>Password</th>
                 <th colspan="2">Action</th>
             </tr>
         </thead>
@@ -80,6 +82,10 @@
                 <td>{{ subject.subject_name|default:"N/A"  }}</td>
                 <td>{{ subject.assigned_class|default:"N/A" }}</td>
                 <td>{{ subject.teacher.department|default:"N/A" }}</td>
+                <td>{{ subject.teacher.username}}</td>
+                <td>{{ subject.teacher.password}}</td>
+
+
               <td>
                     <a href="{% url 'edit_teacher' subject.teacher.TeacherID %}">
                         <button class="Edit">Edit</button>

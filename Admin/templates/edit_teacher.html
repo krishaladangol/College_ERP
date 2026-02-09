@@ -50,6 +50,13 @@
         <label>Assigned Class</label>
         <input type="text" name="Assigned_class" value="{{ subject.assigned_class }}" required>
 
+         <label>Username</label>
+        <input type="text" name="username" value="{{ subject.teacher.username}}" required>
+
+         <label>password</label>
+        <input type="text" name="Password" value="{{ subject.teacher.password}}" required>
+
+
         <button type="submit">Update Teacher</button>
     </form>
 </div>

@@ -19,12 +19,16 @@ def teacher_add(request):
             Assigned_class=form.cleaned_data['Assignedclass']
             Teacherid=form.cleaned_data['Teacherid']
             department=form.cleaned_data['department']
+            username=form.cleaned_data['username']
+            password=form.cleaned_data['password']
             student = Student.objects.filter(Grade=Assigned_class)
             teacher=Teacher.objects.create(
                 TeacherID=Teacherid,
                 Teachername=Teacher_name,
                 
                 department=department,
+                username=username,
+                password=password,
                 
             )
             Subject.objects.create(
@@ -43,9 +47,9 @@ def teacher_add(request):
 
 
 def view_teacher(request):
-    # teachers = Teacher.objects.all()
+    teachers = Teacher.objects.all()
     subjects = Subject.objects.select_related('teacher')
-    return render(request,"view_teacher.html",{'subjects':subjects})
+    return render(request,"view_teacher.html",{'subjects':subjects,'teacher':teachers})
 
 def edit_teacher(request,teacher_id):
     teacher = get_object_or_404(Teacher, TeacherID=teacher_id)
@@ -79,11 +83,15 @@ def add_student(request):
             Lastname=form.cleaned_data['Lastname']
             Grade=form.cleaned_data['Grade']
             Course=form.cleaned_data['Course']
+            username=form.cleaned_data['username']
+            password=form.cleaned_data['password']
             Student.objects.create(
                 Firstname=Firstname,
                 Lastname=Lastname,
                 Grade=Grade,
-                course=Course
+                course=Course,
+                username=username,
+                password=password,
             )
             return redirect("view_student")
         else:

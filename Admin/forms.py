@@ -4,6 +4,8 @@ class Student_form(forms.Form):
     Lastname=forms.CharField(max_length=100)
     Grade=forms.CharField(max_length=100)
     Course=forms.CharField(max_length=100)
+    username=forms.CharField(max_length=100)
+    password=forms.CharField(max_length=100)
 class attendance_add(forms.Form):
     CHOICES=(
         ('Present','P'),
@@ -18,3 +20,5 @@ class Teacher_add(forms.Form):
     Subject_name=forms.CharField(max_length=100)
     Assignedclass=forms.CharField(max_length=100)
     department=forms.CharField(max_length=100)
+    username=forms.CharField(max_length=100)
+    password=forms.CharField(max_length=100)
