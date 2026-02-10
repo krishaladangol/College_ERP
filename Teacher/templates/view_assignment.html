@@ -1,0 +1,31 @@
+
+<div class="container">
+    <h2>All Assignment</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>S.N</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Assigned Date</th>
+                <th>Due Date </th>
+                <th>Assigned Marks</th>
+
+                {% comment %} <th colspan=2>Action</th> {% endcomment %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for assignment in all_assignment %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ assignment.title }} </td>
+                <td>{{ assignment.description }}</td>
+                <td>{{ assignment.assigned_date }}</td>
+                <td>{{ assignment.due_date }}</td>
+                <td>{{ assignment.total_marks}}</td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>

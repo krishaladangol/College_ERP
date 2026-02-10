@@ -3,6 +3,7 @@ from Account.forms import LoginForm
 from django.contrib.auth import authenticate
 from django.contrib import messages
 from Admin.models import Student,Teacher,Subject,Assignment,Attendance
+from .forms import *
 # Create your views here.
 def login(request):
     if request.method=="POST":
@@ -21,6 +22,32 @@ def login(request):
         form=LoginForm()        
     return render(request,"Login.html",{'form':form})
 
+def add_assignment(request):
+    if request.method == "POST":
+        form = AddAssignment(request.POST, request.FILES)
+        if form.is_valid():
+            Assignment.objects.create(
+                teacher=form.cleaned_data['teacher'],
+                subject=form.cleaned_data['subject'],
+                title=form.cleaned_data["title"],
+                description=form.cleaned_data["description"],
+                assigned_date=form.cleaned_data["assigned_date"],
+                due_date=form.cleaned_data["due_date"],
+                total_marks=form.cleaned_data["total_marks"],
+                file=form.cleaned_data["file"],
+            )
+            return redirect('view_assignment')
+    else:
+        form = AddAssignment()
+
+    return render(request, "add_Assignment.html", {'form': form})
+
+def view_assignment(request):
+    student=Assignment.objects.all()
+    return render(request,"view_assignment.html",{'all_assignment':student})
+
+
+   
 
 def teacher_dashboard(request, teacher_id):
     # Get all subjects assigned to this teacher
