@@ -1,23 +1,24 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from Account.forms import LoginForm
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate,login
 from django.contrib import messages
 from Admin.models import Student,Teacher,Subject,Assignment,Attendance
+from django.contrib.auth.decorators import login_required
 from .forms import *
 # Create your views here.
-def login(request):
+def Teacherlogin(request):
     if request.method=="POST":
         form=LoginForm(request.POST)
         if form.is_valid():
             username=form.cleaned_data["username"]
             password=form.cleaned_data["password"]
          
-            user=authenticate(request,password=password)
+            user=authenticate(request,username=username,password=password)
             if user is not None:
                 login(request,user)
                 return redirect('dashboard')
             else:
-                messages.error(request,"Username or Password Incorrect")
+                messages.error(request,"You are not authorized as a teacher")
     else:
         form=LoginForm()        
     return render(request,"Login.html",{'form':form})
@@ -48,16 +49,18 @@ def view_assignment(request):
 
 
    
+@login_required
+def teacher_dashboard(request):
+    # Get logged-in teacher
+    teacher = get_object_or_404(Teacher, user=request.user)
 
-def teacher_dashboard(request, teacher_id):
-    # Get all subjects assigned to this teacher
-    subjects = Subject.objects.filter(teacher_id=teacher_id)
+    # Subjects assigned to this teacher
+    subjects = Subject.objects.filter(teacher=teacher)
+
+    total_subjects = subjects.count()
 
     # Total students across all subjects/classes
     total_students = Student.objects.count()
-
-    # Total subjects assigned
-    total_subjects = subjects.count()
 
  
 

@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 ###Admin
 
 # Teacher View
+'''
 def teacher_add(request):
     
     if request.method=="POST":
@@ -44,6 +45,55 @@ def teacher_add(request):
         form=Teacher_add()
 
     return render(request,"add_teacher.html",{'form':form})
+
+'''
+
+def teacher_add(request):
+    if request.method == "POST":
+        form = Teacher_add(request.POST)
+
+        if form.is_valid():
+            username = form.cleaned_data['username']
+
+            # Check if username already exists
+            if User.objects.filter(username=username).exists():
+                form.add_error('username', 'Username already exists')
+            else:
+                teacher_name = form.cleaned_data['Teachername']
+                subject_name = form.cleaned_data['Subject_name']
+                assigned_class = form.cleaned_data['Assignedclass']
+                teacher_id = form.cleaned_data['Teacherid']
+                department = form.cleaned_data['department']
+                password = form.cleaned_data['password']
+
+                # 1️⃣ Create Django User (for login)
+                user = User.objects.create_user(
+                    username=username,
+                    password=password
+                )
+
+                # 2️⃣ Create Teacher profile
+                teacher = Teacher.objects.create(
+                    user=user,
+                    TeacherID=teacher_id,
+                    Teachername=teacher_name,
+                    department=department
+                )
+
+                # 3️⃣ Create Subject and link teacher
+                Subject.objects.create(
+                    teacher=teacher,
+                    subject_name=subject_name,
+                    assigned_class=assigned_class
+                )
+
+                return redirect("view_teacher")
+    else:
+        form = Teacher_add()
+
+    return render(request, "add_teacher.html", {"form": form})
+
+
 
 
 def view_teacher(request):

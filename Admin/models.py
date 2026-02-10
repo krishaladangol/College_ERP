@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Student(models.Model):
@@ -13,12 +14,15 @@ class Student(models.Model):
         return f"{self.Firstname}-{self.Lastname}"
 
 class Teacher(models.Model):
-    TeacherID = models.CharField(max_length=100,primary_key=True)    
-    Teachername=models.CharField(max_length=100)
-    department=models.CharField(max_length=100,default="IT")
-    username=models.CharField(max_length=100)
-    password=models.CharField(max_length=100)
-
+    # TeacherID = models.CharField(max_length=100,primary_key=True)    
+    # Teachername=models.CharField(max_length=100)
+    # department=models.CharField(max_length=100,default="IT")
+    # username=models.CharField(max_length=100)
+    # password=models.CharField(max_length=100)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    TeacherID = models.CharField(max_length=100, unique=True)
+    Teachername = models.CharField(max_length=100)
+    department = models.CharField(max_length=100, default="IT")
     def __str__(self):
         return self.Teachername
 
@@ -30,7 +34,7 @@ class Subject(models.Model):
     subject_name=models.CharField(max_length=100,default="Python")
 
     def __str__(self):
-        return f"{self.Teachername}"
+        return f"{self.subject_name}"
     
 class Attendance(models.Model):
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
