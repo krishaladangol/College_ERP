@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ student.Firstname }}'s Subjects</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f6f8; }
+        .container { width: 80%; margin: 50px auto; }
+        h1 { text-align: center; color: #2c7be5; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 10px; text-align: center; }
+        th { background: #2c7be5; color: white; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Subjects for {{ student.Firstname }} {{ student.Lastname }}</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>S.N</th>
+                    <th>Subject Name</th>
+                    <th>Assigned Teacher</th>
+                    <th>Class</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for subject in subjects %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ subject.subject_name }}</td>
+                    <td>{{ subject.teacher.Teachername }}</td>
+                    <td>{{ subject.assigned_class }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">No subjects found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
