@@ -6,22 +6,22 @@ from Admin.models import Student,Teacher,Subject,Assignment,Attendance
 from django.contrib.auth.decorators import login_required
 from .forms import *
 # Create your views here.
-def Teacherlogin(request):
-    if request.method=="POST":
-        form=LoginForm(request.POST)
-        if form.is_valid():
-            username=form.cleaned_data["username"]
-            password=form.cleaned_data["password"]
+# def Teacherlogin(request):
+#     if request.method=="POST":
+#         form=LoginForm(request.POST)
+#         if form.is_valid():
+#             username=form.cleaned_data["username"]
+#             password=form.cleaned_data["password"]
          
-            user=authenticate(request,username=username,password=password)
-            if user is not None:
-                login(request,user)
-                return redirect('dashboard')
-            else:
-                messages.error(request,"You are not authorized as a teacher")
-    else:
-        form=LoginForm()        
-    return render(request,"Login.html",{'form':form})
+#             user=authenticate(request,username=username,password=password)
+#             if user is not None:
+#                 login(request,user)
+#                 return redirect('dashboard')
+#             else:
+#                 messages.error(request,"You are not authorized as a teacher")
+#     else:
+#         form=LoginForm()        
+#     return render(request,"Login.html",{'form':form})
 
 def add_assignment(request):
     if request.method == "POST":

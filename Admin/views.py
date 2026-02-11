@@ -174,10 +174,10 @@ def delete_student(request,student_id):
         return redirect("view_student")
     return render(request,"delete_student.html",{'student':student})
 
-def admin_login(request):
-    if not request.user.is_authenticated:
-        return redirect("Login")
-    return render(request,"Home.html")
+# def admin_login(request):
+#     if not request.user.is_authenticated:
+#         return redirect("Login")
+#     return render(request,"Home.html")
 
 @login_required
 def dashboard(request):

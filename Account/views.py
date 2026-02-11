@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from .forms import StudentRegisterForm,LoginForm
 from .models import Student
+from Admin.models import Teacher
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate,login
@@ -58,6 +59,10 @@ def Login(request):
                 login(request,user)
                 if user.is_staff:
                     return redirect('admin-dashboard')
+                
+                if Teacher.objects.filter(user=user).exists():
+                    return redirect('teacher-dashboard')
+                return redirect('/')
             else:
                 messages.error(request,"Username or Password Incorrect")
     else:
