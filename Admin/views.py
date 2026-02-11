@@ -119,36 +119,48 @@ def delete_teacher(request,teacher_id):
     teacher=get_object_or_404(Teacher,TeacherID=teacher_id)
 
     if request.method=="POST":
-        teacher.delete()
+        teacher.user.delete()
         return redirect('view_teacher')
     return render(request,"delete_teacher.html",{'object':teacher})
 
 
 # student View
+from django.contrib.auth.models import User
+
 def add_student(request):
-    if request.method=="POST":
-        form=Student_form(request.POST)
+    if request.method == "POST":
+        form = Student_form(request.POST)
+
         if form.is_valid():
-            Firstname=form.cleaned_data['Firstname']
-            Lastname=form.cleaned_data['Lastname']
-            Grade=form.cleaned_data['Grade']
-            Course=form.cleaned_data['Course']
-            username=form.cleaned_data['username']
-            password=form.cleaned_data['password']
-            Student.objects.create(
-                Firstname=Firstname,
-                Lastname=Lastname,
-                Grade=Grade,
-                course=Course,
-                username=username,
-                password=password,
-            )
-            return redirect("view_student")
-        else:
-            return redirect("add_student")
+            Firstname = form.cleaned_data['Firstname']
+            Lastname = form.cleaned_data['Lastname']
+            Grade = form.cleaned_data['Grade']
+            Course = form.cleaned_data['Course']
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+
+            if User.objects.filter(username=username).exists():
+                form.add_error('username', 'Username already exists')
+            else:
+                user = User.objects.create_user(
+                    username=username,
+                    password=password
+                )
+
+                Student.objects.create(
+                    user=user,
+                    Firstname=Firstname,
+                    Lastname=Lastname,
+                    Grade=Grade,
+                    course=Course,
+                )
+
+                return redirect("view_student")
+
     else:
-        form=Student_form()
-    return render(request,"add_student.html",{'form':form})
+        form = Student_form()
+
+    return render(request, "add_student.html", {'form': form})
 
 
 def view_student(request):
@@ -170,7 +182,7 @@ def edit_student(request,student_id):
 def delete_student(request,student_id):
     student=get_object_or_404(Student,id=student_id)
     if request.method=="POST":
-        student.delete()
+        student.user.delete()
         return redirect("view_student")
     return render(request,"delete_student.html",{'student':student})
 

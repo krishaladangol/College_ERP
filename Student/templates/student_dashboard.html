@@ -1,0 +1,18 @@
+<h2>Welcome {{ student.Firstname }}</h2>
+
+<div>
+    <h3>Total Subjects: {{ total_subjects }}</h3>
+    <h3>Total Assignments: {{ total_assignments }}</h3>
+</div>
+
+<h3>Upcoming Assignments</h3>
+
+<ul>
+    {% for assignment in assignments %}
+        <li>
+            {{ assignment.title }} - Due: {{ assignment.due_date }}
+        </li>
+    {% empty %}
+        <li>No assignments available</li>
+    {% endfor %}
+</ul>

@@ -69,15 +69,15 @@ def teacher_dashboard(request):
     # Total students across all subjects/classes
     total_students = Student.objects.count()
 
-    total_assignment=Assignment.objects.count()
-
- 
+    assignments = Assignment.objects.filter(teacher=teacher)
+    total_assignments = assignments.count()
+    
 
 
     context = {
         'total_students': total_students,
         'total_subjects': total_subjects,
-        'total_assignment':total_assignment,
+        'total_assignment':total_assignments,
        
     }
 

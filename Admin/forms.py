@@ -6,6 +6,8 @@ class Student_form(forms.Form):
     Course=forms.CharField(max_length=100)
     username=forms.CharField(max_length=100)
     password=forms.CharField(max_length=100)
+
+
 class attendance_add(forms.Form):
     CHOICES=(
         ('Present','P'),
