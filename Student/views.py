@@ -11,7 +11,7 @@ def student_dashboard(request):
     subjects = Subject.objects.filter(assigned_class=student.Grade)
 
     # Get assignments for those subjects
-    assignments = Assignment.objects.filter(subjects=subjects)
+    assignments = Assignment.objects.filter(subject__assigned_class=student.Grade)
 
     context = {
         "student": student,
