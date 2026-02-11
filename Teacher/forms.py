@@ -6,7 +6,7 @@ class LoginForm(forms.Form):
     password=forms.CharField(widget=forms.PasswordInput)
 
 class AddAssignment(forms.Form):
-    teacher=forms.ModelChoiceField(queryset=Teacher.objects.all())
+    # teacher=forms.ModelChoiceField(queryset=Teacher.objects.all())
     subject = forms.ModelChoiceField(queryset=Subject.objects.all())
     title = forms.CharField(max_length=200)
     description = forms.CharField(widget=forms.Textarea)

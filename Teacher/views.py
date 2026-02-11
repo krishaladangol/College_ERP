@@ -22,13 +22,15 @@ from .forms import *
 #     else:
 #         form=LoginForm()        
 #     return render(request,"Login.html",{'form':form})
-
+@login_required
 def add_assignment(request):
+    teacher=Teacher.objects.get(user=request.user)
     if request.method == "POST":
+
         form = AddAssignment(request.POST, request.FILES)
         if form.is_valid():
             Assignment.objects.create(
-                teacher=form.cleaned_data['teacher'],
+                teacher=teacher,
                 subject=form.cleaned_data['subject'],
                 title=form.cleaned_data["title"],
                 description=form.cleaned_data["description"],
@@ -40,13 +42,18 @@ def add_assignment(request):
             return redirect('view_assignment')
     else:
         form = AddAssignment()
-
+        form.fields['subject'].queryset=Subject.objects.filter(teacher=teacher)#shows only the teacher assigned subjects
     return render(request, "add_Assignment.html", {'form': form})
 
-def view_assignment(request):
-    student=Assignment.objects.all()
-    return render(request,"view_assignment.html",{'all_assignment':student})
 
+@login_required
+def view_assignment(request):
+    teacher = Teacher.objects.get(user=request.user)
+    assignments = Assignment.objects.filter(teacher=teacher)
+
+    return render(request, "view_assignment.html", {
+        'all_assignment': assignments
+    })
 
    
 @login_required
@@ -62,12 +69,15 @@ def teacher_dashboard(request):
     # Total students across all subjects/classes
     total_students = Student.objects.count()
 
+    total_assignment=Assignment.objects.count()
+
  
 
 
     context = {
         'total_students': total_students,
         'total_subjects': total_subjects,
+        'total_assignment':total_assignment,
        
     }
 

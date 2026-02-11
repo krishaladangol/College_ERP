@@ -66,7 +66,7 @@
 <body>
 
 <div class="header">
-    <h1>Teacher Dashboard</h1>
+    <h1>Teacher Dashboard of {{user.username}}</h1>
     <a href="{% url "add_assignment"%}">Add Assignment</a>
 </div>
 
@@ -83,8 +83,8 @@
         </div>
 
         <div class="card">
-            <h2>{{ pending_assignments }}</h2>
-            <p>Pending Assignments</p>
+            <h2>{{ total_assignments }}</h2>
+            <p> Assignments</p>
         </div>
 
         <div class="card">
