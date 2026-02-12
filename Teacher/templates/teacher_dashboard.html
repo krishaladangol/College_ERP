@@ -1,3 +1,5 @@
+
+ {% comment  %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -120,7 +122,127 @@
                 {% endfor %}
             </tbody>
         </table>
-    </div> {% endcomment %}
+    </div> 
+</div>
+
+</body>
+</html>
+{% endcomment %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Teacher Dashboard</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #2c7be5;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            color: white;
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            width: 90%;
+            margin: 30px auto;
+        }
+
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            flex: 1 1 22%;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h2 {
+            margin: 0;
+            font-size: 36px;
+            color: #2c7be5;
+        }
+
+        .card p {
+            margin: 10px 0 0;
+            font-size: 16px;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <h1>Teacher Dashboard - {{ user.username }}</h1>
+
+    <div class="nav-links">
+        <a href="{% url 'teacher-dashboard' %}">Dashboard</a>
+        <a href="{% url 'add_assignment' %}">Add Assignment</a>
+        <a href="{% url 'view_assignment' %}">View Assignment</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="cards">
+        <div class="card">
+            <h2>{{ total_students }}</h2>
+            <p>Total Students</p>
+        </div>
+
+        <div class="card">
+            <h2>{{ total_subjects }}</h2>
+            <p>My Subjects</p>
+        </div>
+
+        <div class="card">
+            <h2>{{ total_assignment }}</h2>
+            <p>Assignments</p>
+        </div>
+
+        <div class="card">
+            <h2>{{ today_attendance }}</h2>
+            <p>Attendance Today</p>
+        </div>
+    </div>
 </div>
 
 </body>

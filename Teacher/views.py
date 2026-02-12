@@ -1,8 +1,9 @@
 from django.shortcuts import render,redirect,get_object_or_404
+from django.http import HttpResponse
 from Account.forms import LoginForm
 from django.contrib.auth import authenticate,login
 from django.contrib import messages
-from Admin.models import Student,Teacher,Subject,Assignment,Attendance
+from Admin.models import Student,Teacher,Subject,Assignment,Attendance,Submission
 from django.contrib.auth.decorators import login_required
 from .forms import *
 # Create your views here.
@@ -86,3 +87,35 @@ def teacher_dashboard(request):
 def profile(request,teacher_id):
     teacher=get_object_or_404(Teacher,TeacherID=teacher_id)
     return render(request,"profile.html",{"teacher":teacher})
+
+@login_required
+def view_submissions(request, assignment_id):
+    teacher = get_object_or_404(Teacher, user=request.user)
+    assignment = get_object_or_404(Assignment, id=assignment_id, teacher=teacher)
+
+    submissions = Submission.objects.filter(assignment=assignment)
+
+    return render(request, "view_submissions.html", {
+        "assignment": assignment,
+        "submissions": submissions
+    })
+
+
+@login_required
+def grade_submission(request, submission_id):
+    teacher = get_object_or_404(Teacher, user=request.user)
+    submission = get_object_or_404(Submission, id=submission_id)
+
+    if submission.assignment.teacher != teacher:
+        return HttpResponse("Unauthorized", status=403)
+
+    if request.method == "POST":
+        submission.marks_obtained = request.POST.get("marks")
+        submission.feedback = request.POST.get("feedback")
+        submission.save()
+
+        return redirect("view-submissions", assignment_id=submission.assignment.id)
+
+    return render(request, "grade_submission.html", {
+        "submission": submission
+    })

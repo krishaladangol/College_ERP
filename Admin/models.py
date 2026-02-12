@@ -88,4 +88,6 @@ class Submission(models.Model):
     feedback = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.student} - {self.assignment.title}"
+        return f"{self.student} {self.assignment.title}"
+
+

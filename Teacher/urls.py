@@ -6,4 +6,8 @@ urlpatterns = [
     path('profile/<str:teacher_id>',views.profile,name="profile"),
     path('add_assignment',views.add_assignment,name="add_assignment"),
     path('view_assignment',views.view_assignment,name='view_assignment'),
+    path('assignment/<int:assignment_id>/submissions',views.view_submissions,name='view-submissions'),
+
+    path('submission/<int:submission_id>/grade',views.grade_submission,name='grade-submission'),
+
 ]

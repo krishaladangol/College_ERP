@@ -1,31 +1,42 @@
-
 <div class="container">
-    <h2>All Assignment</h2>
+    <h2>All Assignments</h2>
 
-    <table>
+    <table border="1" cellpadding="10" cellspacing="0" width="100%">
         <thead>
             <tr>
                 <th>S.N</th>
                 <th>Title</th>
                 <th>Description</th>
                 <th>Assigned Date</th>
-                <th>Due Date </th>
+                <th>Due Date</th>
                 <th>Assigned Marks</th>
-
-                {% comment %} <th colspan=2>Action</th> {% endcomment %}
+                <th>Action</th>
             </tr>
         </thead>
+
         <tbody>
             {% for assignment in all_assignment %}
             <tr>
                 <td>{{ forloop.counter }}</td>
-                <td>{{ assignment.title }} </td>
+                <td>{{ assignment.title }}</td>
                 <td>{{ assignment.description }}</td>
                 <td>{{ assignment.assigned_date }}</td>
                 <td>{{ assignment.due_date }}</td>
-                <td>{{ assignment.total_marks}}</td>
-                
+                <td>{{ assignment.total_marks }}</td>
+
+                <td>
+                    <a href="{% url 'view-submissions' assignment.id %}">
+                        View Submissions
+                    </a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7" style="text-align:center;">
+                    No Assignments Found
+                </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+</div>
