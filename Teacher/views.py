@@ -59,17 +59,11 @@ def view_assignment(request):
    
 @login_required
 def teacher_dashboard(request):
-    # Get logged-in teacher
     teacher = get_object_or_404(Teacher, user=request.user)
-
-    # Subjects assigned to this teacher
     subjects = Subject.objects.filter(teacher=teacher)
-
     total_subjects = subjects.count()
-
-    # Total students across all subjects/classes
-    total_students = Student.objects.count()
-
+    teacher_classes=subjects.values_list('assigned_class', flat=True)
+    total_students=Student.objects.filter(Grade__in=teacher_classes).distinct().count()
     assignments = Assignment.objects.filter(teacher=teacher)
     total_assignments = assignments.count()
     
