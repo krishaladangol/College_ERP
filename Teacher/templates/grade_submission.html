@@ -1,31 +1,47 @@
-<h2>Submissions for {{ assignment.title }}</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Grade Submission</title>
+</head>
+<body>
 
-<table border="1">
-    <tr>
-        <th>Student</th>
-        <th>File</th>
-        <th>Marks</th>
-        <th>Action</th>
-    </tr>
+    <h2>Grade Submission</h2>
 
-    {% for submission in submissions %}
-    <tr>
-        <td>{{ submission.student }}</td>
-        <td>
-            <a href="{{ submission.submitted_file.url }}">Download</a>
-        </td>
-        <td>
-            {% if submission.marks_obtained %}
-                {{ submission.marks_obtained }}
-            {% else %}
-                Not Graded
-            {% endif %}
-        </td>
-        <td>
-            <a href="{% url 'grade-submission' submission.id %}">
-                Grade
-            </a>
-        </td>
-    </tr>
-    {% endfor %}
-</table>
+    <p><strong>Student:</strong> {{ submission.student }}</p>
+    <p><strong>Assignment:</strong> {{ submission.assignment.title }}</p>
+
+    <p>
+        <strong>Submitted File:</strong>
+        <a href="{{ submission.submitted_file.url }}" target="_blank">
+            Download File
+        </a>
+    </p>
+
+    <hr>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Marks:</label><br>
+        <input type="number"
+               name="marks"
+               value="{{ submission.marks_obtained }}"
+               required>
+        <br><br>
+
+        <label>Feedback:</label><br>
+        <textarea name="feedback" rows="4" cols="50">
+{{ submission.feedback }}
+        </textarea>
+        <br><br>
+
+        <button type="submit">Save Grade</button>
+    </form>
+
+    <br>
+    <a href="{% url 'view-submissions' submission.assignment.id %}">
+        Back to Submissions
+    </a>
+
+</body>
+</html>

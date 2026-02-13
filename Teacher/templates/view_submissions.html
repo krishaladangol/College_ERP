@@ -3,7 +3,7 @@
 <table border="1" cellpadding="10" width="100%">
     <tr>
         <th>Student</th>
-        <th>File</th>
+        {% comment %} <th>File</th> {% endcomment %}
         <th>Marks</th>
         <th>Action</th>
     </tr>
@@ -12,11 +12,11 @@
     <tr>
         <td>{{ submission.student }}</td>
 
-        <td>
+        {% comment %} <td>
             <a href="{{ submission.submitted_file.url }}">
                 Download
             </a>
-        </td>
+        </td> {% endcomment %}
 
         <td>
             {% if submission.marks_obtained %}
