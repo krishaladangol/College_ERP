@@ -8,14 +8,17 @@ def student_dashboard(request):
 
     subjects = Subject.objects.filter(assigned_class=student.Grade)
 
-    assignments = Assignment.objects.filter(subject__assigned_class=student.Grade)
+    all_assignments = Assignment.objects.filter(subject__assigned_class=student.Grade)
 
+    submitted_assignment_ids = Submission.objects.filter(student=student).values_list('assignment_id', flat=True)
+    pending_assignments = all_assignments.exclude(id__in=submitted_assignment_ids).order_by("due_date")
     context = {
         "student": student,
         "total_subjects": subjects.count(),
-        "total_assignments": assignments.count(),
-        "assignments": assignments.order_by("due_date")[:5],
+        "total_assignments": pending_assignments.count(),  # only count pending assignments
+        "assignments": pending_assignments[:],  # show all pending assignments
     }
+    
 
     return render(request, "student_dashboard.html", context)
 
