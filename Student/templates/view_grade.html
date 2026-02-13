@@ -1,0 +1,35 @@
+<h2>Assignment Grade</h2>
+
+{% if submission %}
+
+    <p><strong>Assignment:</strong> {{ assignment.title }}</p>
+
+    <p><strong>Marks:</strong>
+        {% if submission.marks_obtained %}
+            {{ submission.marks_obtained }}
+        {% else %}
+            Not graded yet
+        {% endif %}
+    </p>
+
+    <p><strong>Feedback:</strong></p>
+
+    <p>
+        {% if submission.feedback %}
+            {{ submission.feedback }}
+        {% else %}
+            No feedback yet.
+        {% endif %}
+    </p>
+
+{% else %}
+
+    <p style="color:red;">
+        You have not submitted this assignment yet.
+    </p>
+
+{% endif %}
+
+<a href="{% url 'student-dashboard' %}">
+    Back
+</a>

@@ -64,3 +64,19 @@ def submit_assignment(request, assignment_id):
     return render(request, "submit_assignment.html", {
         "assignment": assignment
     })
+
+@login_required
+def view_grade(request, assignment_id):
+    student = get_object_or_404(Student, user=request.user)
+
+    assignment = get_object_or_404(Assignment, id=assignment_id)
+
+    submission = Submission.objects.filter(
+        assignment=assignment,
+        student=student
+    ).first()
+
+    return render(request, "view_grade.html", {
+        "submission": submission,
+        "assignment": assignment
+    })

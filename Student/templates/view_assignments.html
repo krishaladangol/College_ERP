@@ -53,9 +53,11 @@
                             {% csrf_token %}
                             <input type="file" name="file" required>
                             <button type="submit">Upload</button>
-                        </form>
+                            </form>
                     </td>
-    
+                    <td>
+                        <a href="{% url 'view-grade' assignment.id %}">View Grade</a>
+                    </td>   
                 </tr>
                 {% empty %}
                 <tr>
