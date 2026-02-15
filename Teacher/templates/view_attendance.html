@@ -1,0 +1,21 @@
+<h2>Attendance - {{ subject.subject_name }}</h2>
+
+<table border="1" cellpadding="8">
+    <tr>
+        <th>Student</th>
+        <th>Date</th>
+        <th>Status</th>
+    </tr>
+
+    {% for record in records %}
+    <tr>
+        <td>{{ record.student }}</td>
+        <td>{{ record.date }}</td>
+        <td>{{ record.status }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="3">No attendance records found</td>
+    </tr>
+    {% endfor %}
+</table>

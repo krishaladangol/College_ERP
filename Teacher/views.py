@@ -6,6 +6,8 @@ from django.contrib import messages
 from Admin.models import Student,Teacher,Subject,Assignment,Attendance,Submission
 from django.contrib.auth.decorators import login_required
 from .forms import *
+from django.utils import timezone
+
 # Create your views here.
 # def Teacherlogin(request):
 #     if request.method=="POST":
@@ -66,14 +68,16 @@ def teacher_dashboard(request):
     total_students=Student.objects.filter(Grade__in=teacher_classes).distinct().count()
     assignments = Assignment.objects.filter(teacher=teacher)
     total_assignments = assignments.count()
-    
+    today = timezone.now().date()
+    today_attendance = Attendance.objects.filter(teacher=teacher,date=today).count()
 
 
     context = {
         'total_students': total_students,
         'total_subjects': total_subjects,
         'total_assignment':total_assignments,
-       
+        'today_attendance': today_attendance,
+      
     }
 
     return render(request, 'teacher_dashboard.html', context)
@@ -112,4 +116,46 @@ def grade_submission(request, submission_id):
 
     return render(request, "grade_submission.html", {
         "submission": submission
+    })
+
+@login_required
+def take_attendance(request, subject_id):
+    teacher = get_object_or_404(Teacher, user=request.user)
+    subject = get_object_or_404(Subject, id=subject_id, teacher=teacher)
+
+    students = Student.objects.filter(Grade=subject.assigned_class)
+    today = timezone.now().date()
+
+    if request.method == "POST":
+        for student in students:
+            status = request.POST.get(f"status_{student.id}")
+
+            if status:
+                Attendance.objects.update_or_create(
+                    student=student,
+                    subject=subject,
+                    date=today,
+                    defaults={
+                        "teacher": teacher,
+                        "status": status
+                    }
+                )
+        return redirect("view-attendance", subject_id=subject.id)
+
+    return render(request, "take_attendance.html", {
+        "subject": subject,
+        "students": students,
+        "today": today
+    })
+
+@login_required
+def view_attendance(request, subject_id):
+    teacher = get_object_or_404(Teacher, user=request.user)
+    subject = get_object_or_404(Subject, id=subject_id, teacher=teacher)
+
+    records = Attendance.objects.filter(subject=subject).order_by("-date")
+
+    return render(request, "view_attendance.html", {
+        "subject": subject,
+        "records": records
     })
