@@ -77,6 +77,37 @@
             font-size: 16px;
             color: #555;
         }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 180px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            border-radius: 6px;
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: #2c7be5;
+            padding: 8px 12px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
     </style>
 </head>
 
@@ -89,8 +120,23 @@
         <a href="{% url 'teacher-dashboard' %}">Dashboard</a>
         <a href="{% url 'add_assignment' %}">Add Assignment</a>
         <a href="{% url 'view_assignment' %}">View Assignment</a>
-        <a href="{% url 'take-attendance'   %}">Attendance</a>
+        {% comment %} <a href="{% url 'take-attendance'   %}">Attendance</a> {% endcomment %}
 
+         <div class="dropdown">
+            <a href="#">Attendance ▼</a>
+            <div class="dropdown-content">
+                {% for subject in subjects %}
+                    <a href="{% url 'take-attendance' subject.id %}">
+                        Take - {{ subject.subject_name }}
+                    </a>
+                    <a href="{% url 'view-attendance' subject.id %}">
+                        View - {{ subject.subject_name }}
+                    </a>
+                {% empty %}
+                    <a>No Subjects</a>
+                {% endfor %}
+            </div>
+        </div>
     </div>
 </div>
 
