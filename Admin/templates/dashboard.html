@@ -2,131 +2,171 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <style>
-        /* Global Styles */
-        body {
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
             background-color: #f4f6f8;
         }
 
-        h1 {
-            text-align: center;
-            margin-top: 30px;
-            color: #333;
-        }
-
-        /* Dashboard Container */
-        .dashboard {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            padding: 20px;
-        }
-
-      
-        .card {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            width: 250px;
-            padding: 20px;
-            text-align: center;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-        }
-        button:hover{
-             transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-        }
-        .add{
-            color:white;
-            background-color:pink;
-        }
-        .view{
-            color:white;
-            background-color:Yellow;            
-        }
-        .card h2 {
-            font-size: 2.5rem;
-            margin: 0;
-            color: #2c7be5;
-        }
-
-        .card p {
-            font-size: 1.2rem;
-            color: #555;
-            margin-top: 10px;
-        }
-
-    
-        @media (max-width: 800px) {
-            .card {
-                width: 45%;
-            }
-        }
-
-        @media (max-width: 500px) {
-            .card {
-                width: 90%;
-            }
-        }
         .navbar {
             background-color: #2c7be5;
-            overflow: hidden;
-            padding: 10px 20px;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
         }
 
-        .navbar a {
+        .navbar h2 {
             color: white;
-            text-decoration: none;
-            margin-right: 20px;
             font-weight: bold;
         }
 
+        .navbar a {
+            text-decoration: none;
+            background: white;
+            color: #2c7be5;
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
         .navbar a:hover {
-            text-decoration: underline;
+            background-color: #e2e6ea;
+        }
+
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .container h1 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .dashboard {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+
+        .card {
+            background: #ffffff;
+            width: 280px;
+            padding: 30px 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .card h2 {
+            font-size: 40px;
+            color: #2c7be5;
+            margin-bottom: 10px;
+            text-align:center;
+        }
+
+        .card p {
+            color: #555;
+            margin-bottom: 20px;
+            font-size: 16px;
+            text-align:center;
+
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-add {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-add:hover {
+            background-color: #218838;
+        }
+
+        .btn-view {
+            background-color: #ffc107;
+            color: #333;
+        }
+
+        .btn-view:hover {
+            background-color: #e0a800;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
+
 <body>
 
-    <h1>Welcome to Admin Dashboard</h1>
-    <div class='container'>
-        <div class="navbar">
-            <a href="{%url 'admin-dashboard'%}">Home</a>
-        </div>
+    <div class="navbar">
+        <h2>Admin Panel</h2>
+        <a href="{% url 'admin-dashboard' %}">Home</a>
     </div>
+
+    <div class="container">
+        <h1>Welcome to Admin Dashboard</h1>
+    </div>
+
     <div class="dashboard">
-        <!-- Total Students -->
+
         <div class="card">
             <h2>{{ students }}</h2>
             <p>Total Students</p>
-            <button class="add"><a href="add_student"> + Add </a></button>
-            <button class="view"><a href="view_student"> View</a></button>
+            <div class="btn-group">
+                <a href="{% url 'add_student' %}" class="btn btn-add">+ Add</a>
+                <a href="{% url 'view_student' %}" class="btn btn-view">View</a>
+            </div>
         </div>
 
-        <!-- Total Teachers -->
         <div class="card">
             <h2>{{ teachers }}</h2>
             <p>Total Teachers</p>
-             
-            <button class="add"><a href="teacher_add"> + Add </a></button>
-            <button class="view"><a href="view_teacher"> View</a></button>
-
-            
+            <div class="btn-group">
+                <a href="{% url 'teacher_add' %}" class="btn btn-add">+ Add</a>
+                <a href="{% url 'view_teacher' %}" class="btn btn-view">View</a>
+            </div>
         </div>
-        
 
-       
     </div>
 
 </body>
