@@ -54,46 +54,42 @@ def teacher_add(request):
 
         if form.is_valid():
             username = form.cleaned_data['username']
+            teacher_name = form.cleaned_data['Teachername']
+            subject_name = form.cleaned_data['Subject_name']
+            assigned_class = form.cleaned_data['Assignedclass']
+            teacher_id = form.cleaned_data['Teacherid']
+            department = form.cleaned_data['department']
+            password = form.cleaned_data['password']
 
-            # Check if username already exists
-            if User.objects.filter(username=username).exists():
-                form.add_error('username', 'Username already exists')
-            else:
-                teacher_name = form.cleaned_data['Teachername']
-                subject_name = form.cleaned_data['Subject_name']
-                assigned_class = form.cleaned_data['Assignedclass']
-                teacher_id = form.cleaned_data['Teacherid']
-                department = form.cleaned_data['department']
-                password = form.cleaned_data['password']
+            # Check if user exists
+            user, user_created = User.objects.get_or_create(username=username)
 
-                # 1️⃣ Create Django User (for login)
-                user = User.objects.create_user(
-                    username=username,
-                    password=password
-                )
+            if user_created:
+                user.set_password(password)
+                user.save()
 
-                # 2️⃣ Create Teacher profile
-                teacher = Teacher.objects.create(
-                    user=user,
-                    TeacherID=teacher_id,
-                    Teachername=teacher_name,
-                    department=department
-                )
+            # Check if teacher profile exists
+            teacher, teacher_created = Teacher.objects.get_or_create(
+                user=user,
+                defaults={
+                    "TeacherID": teacher_id,
+                    "Teachername": teacher_name,
+                    "department": department
+                }
+            )
 
-                # 3️⃣ Create Subject and link teacher
-                Subject.objects.create(
-                    teacher=teacher,
-                    subject_name=subject_name,
-                    assigned_class=assigned_class
-                )
+            Subject.objects.create(
+                teacher=teacher,
+                subject_name=subject_name,
+                assigned_class=assigned_class
+            )
 
-                return redirect("view_teacher")
+            return redirect("view_teacher")
+
     else:
         form = Teacher_add()
 
     return render(request, "add_teacher.html", {"form": form})
-
-
 
 
 def view_teacher(request):
