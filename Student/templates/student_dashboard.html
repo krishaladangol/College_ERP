@@ -70,13 +70,31 @@
 </head>
 <body>
     <div style="background:#2c7be5; padding:15px 30px; display:flex; justify-content:space-between; align-items:center;">
+
+    <div style="display:flex; gap:25px; align-items:center;">
         <h2 style="color:white; margin:0;">Student Panel</h2>
 
-        <a href="{% url 'account:logout' %}" 
-        style="background:#dc3545; color:white; padding:8px 14px; border-radius:6px; text-decoration:none;">
-            Logout
+        <a href="{% url 'student-dashboard' %}" 
+           style="color:white; text-decoration:none; font-weight:bold;">
+            Home
         </a>
+
+        <a href="{% url 'view-assignments' %}" 
+           style="color:white; text-decoration:none; font-weight:bold;">
+            View Assignments
+        </a>
+
+        {% comment %} <a href="{% url 'view-attendance' %}" 
+           style="color:white; text-decoration:none; font-weight:bold;">
+            View Attendance
+        </a> {% endcomment %}
     </div>
+
+    <a href="{% url 'account:logout' %}" 
+       style="background:#dc3545; color:white; padding:8px 14px; border-radius:6px; text-decoration:none;">
+        Logout
+    </a>
+</div>
     <div class="container">
         <h1>Welcome {{ student.Firstname }} {{ student.Lastname }}</h1>
 
@@ -101,6 +119,7 @@
                         <th>Subject</th>
                         <th>Due Date</th>
                         <th>Total Marks</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -110,6 +129,13 @@
                         <td>{{ assignment.subject.subject_name }}</td>
                         <td>{{ assignment.due_date }}</td>
                         <td>{{ assignment.total_marks }}</td>
+                         <td>
+                            {% if assignment.id in submitted_ids %}
+                                <span style="color:green; font-weight:bold;">Submitted</span>
+                            {% else %}
+                                <span style="color:red; font-weight:bold;">Pending</span>
+                            {% endif %}
+                        </td>
                     </tr>
                     {% empty %}
                     <tr>

@@ -6,19 +6,26 @@ def student_dashboard(request):
 
     student = get_object_or_404(Student, user=request.user)
 
-    subjects = Subject.objects.filter(assigned_class=student.Grade)
+    subjects = Subject.objects.filter(
+        assigned_class__iexact=student.Grade
+    )
 
-    all_assignments = Assignment.objects.filter(subject__assigned_class=student.Grade)
+    assignments = Assignment.objects.filter(
+        subject__assigned_class__iexact=student.Grade
+    ).order_by("due_date")
 
-    submitted_assignment_ids = Submission.objects.filter(student=student).values_list('assignment_id', flat=True)
-    pending_assignments = all_assignments.exclude(id__in=submitted_assignment_ids).order_by("due_date")
+    # Get submitted assignment IDs
+    submitted_ids = Submission.objects.filter(
+        student=student
+    ).values_list("assignment_id", flat=True)
+
     context = {
         "student": student,
         "total_subjects": subjects.count(),
-        "total_assignments": pending_assignments.count(),  # only count pending assignments
-        "assignments": pending_assignments[:],  # show all pending assignments
+        "total_assignments": assignments.count(),
+        "assignments": assignments,
+        "submitted_ids": list(submitted_ids),
     }
-    
 
     return render(request, "student_dashboard.html", context)
 
