@@ -3,50 +3,13 @@ from .forms import *
 from .models import *
 from datetime import date
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 # Create your views here.
 
 ###Admin
 
 # Teacher View
-'''
-def teacher_add(request):
-    
-    if request.method=="POST":
-        form=Teacher_add(request.POST)
-        if form.is_valid():
-            Teacher_name=form.cleaned_data['Teachername']
-            subject=form.cleaned_data['Subject_name']
-            Assigned_class=form.cleaned_data['Assignedclass']
-            Teacherid=form.cleaned_data['Teacherid']
-            department=form.cleaned_data['department']
-            username=form.cleaned_data['username']
-            password=form.cleaned_data['password']
-            student = Student.objects.filter(Grade=Assigned_class)
-            teacher=Teacher.objects.create(
-                TeacherID=Teacherid,
-                Teachername=Teacher_name,
-                
-                department=department,
-                username=username,
-                password=password,
-                
-            )
-            Subject.objects.create(
-                Teachername=Teacher_name,
-                teacher=teacher,#link FK
-                assigned_class=Assigned_class,
-                subject_name=subject,
-            )
-            return redirect("view_teacher")
-        else:
-            return redirect("Teacher_add")
-    else:
-        form=Teacher_add()
-
-    return render(request,"add_teacher.html",{'form':form})
-
-'''
 
 def teacher_add(request):
     if request.method == "POST":
@@ -121,7 +84,6 @@ def delete_teacher(request,teacher_id):
 
 
 # student View
-from django.contrib.auth.models import User
 
 def add_student(request):
     if request.method == "POST":

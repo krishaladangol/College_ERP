@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse
 from Account.forms import LoginForm
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 from Admin.models import Student,Teacher,Subject,Assignment,Attendance,Submission
 from django.contrib.auth.decorators import login_required
@@ -160,3 +160,5 @@ def view_attendance(request, subject_id):
         "subject": subject,
         "records": records
     })
+
+

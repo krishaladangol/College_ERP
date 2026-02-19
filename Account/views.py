@@ -4,7 +4,7 @@ from .forms import StudentRegisterForm,LoginForm
 from Admin.models import Teacher,Student
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
 # Create your views here.
 
 # def Registration(request):
@@ -74,6 +74,10 @@ def Login(request):
         form=LoginForm()        
     return render(request,"Login.html",{'form':form})
 
+def loggingout(request):
+    logout(request)
+    return redirect('account:Login')
+    
 
 def Home(request):
     return render(request,"Home_page.html")
