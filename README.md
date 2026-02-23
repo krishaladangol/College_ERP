@@ -49,7 +49,6 @@ ERP/
 │ ├── views.py
 │ ├── urls.py
 │ └── templates
-
 ├── Student/ # Student app
 │ ├── models.py
 │ ├── views.py
@@ -78,7 +77,7 @@ ERP/
 6.python manage.py createsuperuser
 7.python manage.py runserver
 
-📊 Database Models (Core)
+## 📊 Database Models (Core)
 1.User (Django default)
 2.Teacher
 3.Student
