@@ -50,6 +50,7 @@
             flex-wrap: wrap;
             gap: 20px;
             justify-content: space-between;
+            margin-top:100px;
         }
 
         .card {
@@ -107,7 +108,12 @@
         .dropdown:hover .dropdown-content {
             display: block;
         }
-
+        @media (max-width: 768px) {
+            .dashboard {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
     </style>
 </head>
 
@@ -137,6 +143,7 @@
                 {% endfor %}
             </div>
         </div>
+        
         <a href="{% url 'account:logout' %}" 
         style="background:#dc3545; padding:6px 12px; border-radius:6px;">
             Logout
@@ -160,11 +167,11 @@
             <h2>{{ total_assignment }}</h2>
             <p>Assignments</p>
         </div>
-
+{% comment %} 
         <div class="card">
             <h2>{{ today_attendance }}</h2>
             <p>Attendance Today</p>
-        </div>
+        </div> {% endcomment %}
     </div>
 </div>
 

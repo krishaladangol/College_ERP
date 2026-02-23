@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Attendance</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f8;
+        }
+        .container {
+            width: 80%;
+            margin: 40px auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+        th {
+            background: #2c7be5;
+            color: white;
+        }
+        .present {
+            color: green;
+            font-weight: bold;
+        }
+        .absent {
+            color: red;
+            font-weight: bold;
+        }
+        .summary {
+            margin-bottom: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Attendance - {{ student.Firstname }} {{ student.Lastname }}</h2>
+
+    <div class="summary">
+        <p><strong>Total Classes:</strong> {{ total_classes }}</p>
+        <p><strong>Present:</strong> {{ present_count }}</p>
+        <p><strong>Absent:</strong> {{ absent_count }}</p>
+        <p><strong>Attendance %:</strong> {{ attendance_percentage }}%</p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Subject</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in attendance_records %}
+            <tr>
+                <td>{{ record.date }}</td>
+                <td>{{ record.subject.subject_name }}</td>
+                <td>
+                    {% if record.status == "Present" %}
+                        <span class="present">Present</span>
+                    {% else %}
+                        <span class="absent">Absent</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">No attendance records found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>

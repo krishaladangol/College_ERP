@@ -73,6 +73,7 @@ def teacher_dashboard(request):
 
 
     context = {
+        "teacher":teacher,
         'subjects':subjects,
         'total_students': total_students,
         'total_subjects': total_subjects,
