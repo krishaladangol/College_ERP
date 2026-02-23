@@ -39,32 +39,6 @@ This project includes separate panels for Admin, Teacher, and Student with featu
 - SQLite (Default Django Database)
 
 ---
-
-## 📂 Project Structure
-ERP/
-│
-├── Management/ # Main project folder
-├── Admin/ # Admin app
-│ ├── models.py
-│ ├── views.py
-│ ├── urls.py
-│ └── templates
-├── Student/ # Student app
-│ ├── models.py
-│ ├── views.py
-│ ├── urls.py
-│ └── templates/
-│
-├── Teacher/ # Teacher app
-│ ├── models.py
-│ ├── views.py
-│ ├── urls.py
-│ └── templates/
-│
-├── db.sqlite3
-└── manage.py
----
-
 ## ⚙️ Installation & Setup
 
 
@@ -76,6 +50,7 @@ ERP/
 5.python manage.py migrate
 6.python manage.py createsuperuser
 7.python manage.py runserver
+---
 
 ## 📊 Database Models (Core)
 1.User (Django default)
