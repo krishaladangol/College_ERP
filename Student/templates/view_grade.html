@@ -1,3 +1,31 @@
+    <div style="background:#2c7be5; padding:15px 30px; display:flex; justify-content:space-between; align-items:center;">
+
+    <div style="display:flex; gap:25px; align-items:center;">
+        <h2 style="color:white; margin:0;">Student Panel</h2>
+
+        <a href="{% url 'student-dashboard' %}" 
+           style="color:white; text-decoration:none; font-weight:bold;">
+            Home
+        </a>
+
+        <a href="{% url 'view-assignments' %}" 
+           style="color:white; text-decoration:none; font-weight:bold;">
+            View Assignments
+        </a>
+        <a href="{% url 'view-subjects' %}" 
+           style="color:white; text-decoration:none; font-weight:bold;">
+            View Subjects
+        </a>
+
+
+
+    </div>
+
+    <a href="{% url 'account:logout' %}" 
+       style="background:#dc3545; color:white; padding:8px 14px; border-radius:6px; text-decoration:none;">
+        Logout
+    </a>
+</div>
 <h2>Assignment Grade</h2>
 
 {% if submission %}

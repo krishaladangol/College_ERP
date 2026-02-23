@@ -49,10 +49,46 @@
         button:hover {
             background-color: #1a68d1;
         }
+                .navbar {
+            background-color: #2c7be5;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+        }
+
+        .navbar h2 {
+            color: white;
+            font-weight: bold;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            background: white;
+            color: #2c7be5;
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: #e2e6ea;
+        }
+
     </style>
 </head>
 <body>
+    <div class="navbar">
+        <h2>Admin Panel</h2>
+        <a href="{% url 'admin-dashboard' %}">Home</a>
+        <a href="{% url 'account:logout' %}" style="margin-left:10px; background:#dc3545; color:white;">
+            Logout
+        </a>
 
+    </div>
 <div class="container">
     <h2>Attendance Sheet</h2>
 

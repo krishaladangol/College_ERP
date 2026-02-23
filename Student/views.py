@@ -90,3 +90,5 @@ def view_grade(request, assignment_id):
         "submission": submission,
         "assignment": assignment
     })
+
+
