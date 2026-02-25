@@ -50,6 +50,7 @@ This project includes separate panels for Admin, Teacher, and Student with featu
 5.python manage.py migrate
 6.python manage.py createsuperuser
 7.python manage.py runserver
+```
 ---
 
 ## 📊 Database Models (Core)
