@@ -61,3 +61,25 @@ This project includes separate panels for Admin, Teacher, and Student with featu
 6.Submission
 7.Attendance
 
+## Screenshots
+![ Login Page](ss/Login_Page.jpeg) 
+![ Admin:Dashboard](ss/Admin_Dashboard.jpeg)  
+![ Admin:Add Students](ss/Admin_Add_Student.jpeg)
+![ Admin:View Students](ss/Admin_view_students.jpeg)
+![ Admin:Edit Students](ss/Admin_Edit_Student.jpeg)  
+![ Admin:Add Teacher](ss/Admin_Add_Teacher.jpeg)
+![ Admin:View Teacher](ss/Admin_view_Teacher.jpeg)
+![ Admin:Edit Teacher](ss/Admin_Edit_Teacher.jpeg)  
+![ Teacher:Dashboard](ss/Teacher_Dashboard.jpeg)
+![ Teacher:Add Assignment](ss/Teacher_Add_Assignment.jpeg)  
+![ Teacher:View Assignment](ss/Teacher_View_Assignment.jpeg)  
+![ Teacher:Take Attendance](ss/Teacher_Attendance.jpeg)  
+![ Teacher:View Attendance](ss/Teacher_View_Attendance.jpeg)  
+![ Teacher:View Submssion](ss/Teacher_view_submission.jpeg)  
+![ Teacher:Grade Submssion](ss/Teacher_Grade_Assignment.jpeg)  
+![ Student:Dashboard](ss/Student_Dashboard.jpeg)  
+![ Student:View Subject](ss/View_Subjects.jpeg)  
+![ Student:View and Submit Assignment](ss/View_and_Submit_Assignment.jpeg)  
+![ Student:View Grade](ss/Student_view_Grade.jpeg)  
+
+
